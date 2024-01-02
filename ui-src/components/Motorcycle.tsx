@@ -28,7 +28,7 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
     "https://nogson.github.io/glb-viewer/ui-src/assets/glb//Motorcycle.glb"
   ) as GLTFResult;
   return (
-    <group {...props} dispose={null}>
+    <group {...props} dispose={null} scale={0.1} position={[0, -0.5, 0]}>
       <mesh
         geometry={nodes.Motorcycle_mesh.geometry}
         material={materials.blinn1SG}

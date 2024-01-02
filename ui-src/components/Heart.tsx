@@ -40,4 +40,6 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("https://nogson.github.io/glb-viewer/ui-src/assets/glb/Heart.glb");
+useGLTF.preload(
+  "https://nogson.github.io/glb-viewer/ui-src/assets/glb/Heart.glb"
+);

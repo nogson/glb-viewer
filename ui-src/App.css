@@ -101,32 +101,6 @@ main {
   position: relative;
 }
 
-.canvas {
-  height: 400px;
-}
 
-.buttons {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-}
 
-footer {
-  padding: 8px;
-  background: #e7e7e7;
-}
 
-.thumbnail {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.thumbnail img {
-  width: 19%;
-  margin: 0 1.25% 1.25% 0;
-  box-sizing: border-box;
-}
-
-.thumbnail img:nth-child(5n) {
-  margin-right: 0;
-}
