@@ -1,4 +1,4 @@
-figma.showUI(__html__, { themeColors: true, width: 500, height: 500 });
+figma.showUI(__html__, { themeColors: true, width: 400, height: 500 });
 
 figma.ui.onmessage = (msg) => {
   // if (msg.type === "create-rectangles") {
@@ -43,5 +43,4 @@ figma.ui.onmessage = (msg) => {
         figma.closePlugin();
       });
   }
-
 };

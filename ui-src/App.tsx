@@ -3,6 +3,7 @@ import "./App.css";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stats, Environment, Sphere, OrbitControls } from "@react-three/drei";
 import Heart from "./components/Heart";
+import HeartThumb from "./assets/images/thumb_heart.png";
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -51,16 +52,16 @@ function App() {
             <Heart scale={1} />
           </Suspense>
         </Canvas>
+        <div className="buttons">
+          <button className="brand" onClick={onExport}>
+            Create
+          </button>
+        </div>
       </div>
-
       <footer>
         <div className="thumbnail">
-          <img src="" alt="" />
+          <img src={HeartThumb} alt="" />
         </div>
-        <button className="brand" onClick={onExport}>
-          Create
-        </button>
-        <button onClick={onCancel}>Cancel</button>
       </footer>
     </main>
   );

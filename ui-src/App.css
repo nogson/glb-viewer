@@ -97,6 +97,33 @@ img {
   width: 2rem;
 }
 
+main {
+  position: relative;
+}
+
 .canvas {
-  height: 300px;
+  height: 400px;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.thumbnail {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.buttons {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+footer {
+  padding: 8px;
+}
+
+.thumbnail img {
+  width: 10%;
+  height: auto;
+  border: 1px solid #e7e7e7;
+  box-sizing: border-box;
 }
