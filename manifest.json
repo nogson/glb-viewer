@@ -1,0 +1,12 @@
+{
+  "name": "GLB Viewer",
+  "id": "glb-viewer",
+  "api": "1.0.0",
+  "editorType": ["figma", "figjam"],
+  "permissions": [],
+  "main": "dist/code.js",
+  "ui": "dist/index.html",
+  "networkAccess": {
+    "allowedDomains": ["https://www.satofaction.net", "https://picsum.photos"]
+  }
+}
