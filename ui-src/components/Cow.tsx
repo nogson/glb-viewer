@@ -71,20 +71,20 @@ type ContextType = Record<
   >
 >;
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+export default function Model(props: JSX.IntrinsicElements["group"]) {
   const group = useRef<THREE.Group>();
   const { nodes, materials, animations } = useGLTF(
     "https://nogson.github.io/glb-viewer/ui-src/assets/glb/Cow.glb"
   ) as GLTFResult;
   const { actions } = useAnimations(animations, group);
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null} position={[0, -0.5, 0]}>
       <group name="Root_Scene">
         <group name="RootNode">
           <group
             name="AnimalArmature"
             rotation={[-Math.PI / 2, 0, 0]}
-            scale={100}
+            scale={20}
           >
             <primitive object={nodes.Body} />
             <primitive object={nodes.IKBackLegL} />

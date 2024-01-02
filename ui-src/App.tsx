@@ -1,12 +1,22 @@
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, useState } from "react";
 import "./App.css";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stats, Environment, Sphere, OrbitControls } from "@react-three/drei";
 import Heart from "./components/Heart";
+import Cow from "./components/Cow";
+import Motorcycle from "./components/Motorcycle";
+
 import HeartThumb from "./assets/images/thumb_heart.png";
+import CowThumb from "./assets/images/thumb_cow.png";
+import CowThumb from "./assets/images/thumb_cow.png";
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [modelType, setModelType] = useState<string>("heart");
+  const GlbModels = [
+    { name: "heart", component: Heart, thumb: HeartThumb },
+    { name: "cow", component: Cow, thumb: CowThumb },
+  ];
 
   const onCancel = () => {
     parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
@@ -16,10 +26,6 @@ function App() {
   const onExport = () => {
     const canvas = document.querySelector("canvas");
     const dataUrl = canvas?.toDataURL("image/png");
-    const imageData = Uint8Array.from(atob(dataUrl!.split(",")[1]), (c) =>
-      c.charCodeAt(0)
-    );
-
     parent.postMessage({ pluginMessage: { type: "export", dataUrl } }, "*");
   };
 
@@ -49,18 +55,35 @@ function App() {
           />
           <pointLight position={[10, 10, 10]} />
           <Suspense fallback={null}>
-            <Heart scale={1} />
+            {(() => {
+              switch (modelType) {
+                case "heart":
+                  return <Motorcycle scale={1} />;
+                case "cow":
+                  return <Cow scale={1} />;
+                default:
+                  return <Heart scale={1} />;
+              }
+            })()}
           </Suspense>
         </Canvas>
         <div className="buttons">
           <button className="brand" onClick={onExport}>
-            Create
+            Add
           </button>
         </div>
       </div>
       <footer>
         <div className="thumbnail">
-          <img src={HeartThumb} alt="" />
+          {GlbModels.map((model) => {
+            return (
+              <img
+                src={model.thumb}
+                alt={model.name}
+                onClick={() => setModelType(model.name)}
+              />
+            );
+          })}
         </div>
       </footer>
     </main>

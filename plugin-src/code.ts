@@ -20,7 +20,6 @@ figma.ui.onmessage = (msg) => {
     figma
       .createImageAsync(msg.dataUrl)
       .then(async (image: Image) => {
-        console.log(image);
         // Create node
         const node = figma.createRectangle();
         // Resize the node to match the image's width and height
