@@ -1,27 +1,28 @@
-import { FC, useState, Suspense } from "react";
+import { FC, useState, Suspense, useEffect } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import {
-  Stats,
-  Environment,
-  Sphere,
-  OrbitControls,
-  useGLTF,
-} from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Heart from "./Heart";
 import Cow from "./Cow";
 import Motorcycle from "./Motorcycle";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import FileUpload from "./FileUpload";
+import { Group, Object3DEventMap } from "three";
+import Preloader from "./Preloader";
 
 const viewerStyle = css`
   .canvas {
     height: 400px;
   }
   .buttons {
+    display: flex;
     position: absolute;
     right: 8px;
-    top: 8px;
+    bottom: 8px;
+    button {
+      font-size: 12px;
+      margin-left: 8px;
+    }
   }
 `;
 
@@ -29,12 +30,33 @@ type ViewerProps = {
   modelType: string;
 };
 
+const getGLBComponent = (modelType: string) => {
+  switch (modelType) {
+    case "heart":
+      return <Heart />;
+    case "cow":
+      return <Cow />;
+    case "motorcycle":
+      return <Motorcycle />;
+    default:
+      return <Heart />;
+  }
+};
+
 const Viewer: FC<ViewerProps> = ({ modelType }) => {
+  const [uploadData, setUploadData] = useState<Group<Object3DEventMap> | null>(
+    null
+  );
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const onExport = () => {
     const canvas = document.querySelector("canvas");
     const dataUrl = canvas?.toDataURL("image/png");
     parent.postMessage({ pluginMessage: { type: "export", dataUrl } }, "*");
   };
+
+  useEffect(() => {
+    setUploadData(null);
+  }, [modelType]);
 
   return (
     <>
@@ -62,27 +84,25 @@ const Viewer: FC<ViewerProps> = ({ modelType }) => {
               castShadow
             />
             <pointLight position={[10, 10, 10]} />
-            {/* <Suspense fallback={null}>
-              {(() => {
-                switch (modelType) {
-                  case "heart":
-                    return <Heart scale={1} />;
-                  case "cow":
-                    return <Cow scale={1} />;
-                  case "motorcycle":
-                    return <Motorcycle scale={1} />;
-                  default:
-                    return <Heart scale={1} />;
-                }
-              })()}
-            </Suspense> */}
+            <Suspense fallback={<Preloader />}>
+              {uploadData ? (
+                <primitive object={uploadData} />
+              ) : (
+                getGLBComponent(modelType)
+              )}
+            </Suspense>
           </Canvas>
           <div className="buttons">
+            <FileUpload
+              setUploadData={setUploadData}
+              setIsLoaded={setIsLoaded}
+            />
             <button className="brand" onClick={onExport}>
               Add
             </button>
           </div>
         </div>
+        {isLoaded && <Preloader />}
       </div>
     </>
   );

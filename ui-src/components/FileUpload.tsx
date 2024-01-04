@@ -5,7 +5,8 @@ import { Canvas } from "@react-three/fiber";
 import { css } from "@emotion/react";
 
 type FileUploadProps = {
-  // changeGlbData: (dataUrl: File | null) => void;
+  setUploadData: (data: Group<Object3DEventMap> | null) => void;
+  setIsLoaded: (isLoaded: boolean) => void;
 };
 
 const GLBModel: FC<{ scene: Group<Object3DEventMap> }> = ({ scene }) => {
@@ -13,7 +14,6 @@ const GLBModel: FC<{ scene: Group<Object3DEventMap> }> = ({ scene }) => {
 };
 
 const fileUploadStyle = css`
-
   label {
     display: block;
     color: var(--color-bg-brand);
@@ -29,14 +29,12 @@ const fileUploadStyle = css`
   }
 `;
 
-const FileUpload: FC<FileUploadProps> = () => {
+const FileUpload: FC<FileUploadProps> = ({ setUploadData, setIsLoaded }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [uploadData, setUploadData] = useState<Group<Object3DEventMap> | null>(
-    null
-  );
 
   const onUpload = async () => {
     if (inputRef.current?.files) {
+      setIsLoaded(true);
       const url = URL.createObjectURL(inputRef.current.files[0]);
       useGLTF.preload(url);
       // TODO 遅延させないと読み込めない
@@ -44,7 +42,8 @@ const FileUpload: FC<FileUploadProps> = () => {
         const { scene } = useGLTF(url);
         setUploadData(scene);
         URL.revokeObjectURL(url);
-      }, 300);
+        setIsLoaded(false);
+      }, 1000);
     }
   };
 
