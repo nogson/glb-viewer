@@ -24,8 +24,9 @@ function App() {
 
   return (
     <main>
-      {/* <Viewer modelType={modelType} /> */}
-      <FileUpload />
+      <div className="content">
+        <Viewer modelType={modelType} />
+      </div>
       <Footer GlbModels={GlbModels} setModelType={setModelType} />
     </main>
   );
