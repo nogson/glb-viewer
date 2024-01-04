@@ -7,6 +7,7 @@ import CowThumb from "./assets/images/thumb_cow.png";
 import MotorcycleThumb from "./assets/images/thumb_Motorcycle.png";
 import Footer from "./components/Footer";
 import Viewer from "./components/Viewer";
+import FileUpload from "./components/FileUpload";
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -17,9 +18,14 @@ function App() {
     { name: "motorcycle", thumb: MotorcycleThumb },
   ];
 
+  // const changeGlbData = (data: File | null) => {
+  //   setUploadData(data);
+  // };
+
   return (
     <main>
-      <Viewer modelType={modelType} />
+      {/* <Viewer modelType={modelType} /> */}
+      <FileUpload />
       <Footer GlbModels={GlbModels} setModelType={setModelType} />
     </main>
   );

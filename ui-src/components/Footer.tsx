@@ -1,13 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import React from "react";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { GlbModel } from "../types/commonTypes";
-
-interface FooterProps {
-  GlbModels: GlbModel[]; // Replace 'any' with the appropriate type for GlbModels
-  setModelType: (name: string) => void; // Replace 'any' with the appropriate type for setModelType
-}
 
 const footerStyle = css`
   padding: 8px;
@@ -27,6 +22,11 @@ const footerStyle = css`
     }
   }
 `;
+
+interface FooterProps {
+  GlbModels: GlbModel[]; // Replace 'any' with the appropriate type for GlbModels
+  setModelType: (name: string) => void; // Replace 'any' with the appropriate type for setModelType
+}
 
 const Footer: FC<FooterProps> = ({ GlbModels, setModelType }) => {
   return (

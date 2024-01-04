@@ -1,11 +1,18 @@
 import { FC, useState, Suspense } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Stats, Environment, Sphere, OrbitControls } from "@react-three/drei";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import {
+  Stats,
+  Environment,
+  Sphere,
+  OrbitControls,
+  useGLTF,
+} from "@react-three/drei";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Heart from "./Heart";
 import Cow from "./Cow";
 import Motorcycle from "./Motorcycle";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 const viewerStyle = css`
   .canvas {
@@ -18,8 +25,11 @@ const viewerStyle = css`
   }
 `;
 
-const Viewer: FC<{ modelType: string }> = ({ modelType }) => {
-  // canvasを画像に変換
+type ViewerProps = {
+  modelType: string;
+};
+
+const Viewer: FC<ViewerProps> = ({ modelType }) => {
   const onExport = () => {
     const canvas = document.querySelector("canvas");
     const dataUrl = canvas?.toDataURL("image/png");
@@ -52,7 +62,7 @@ const Viewer: FC<{ modelType: string }> = ({ modelType }) => {
               castShadow
             />
             <pointLight position={[10, 10, 10]} />
-            <Suspense fallback={null}>
+            {/* <Suspense fallback={null}>
               {(() => {
                 switch (modelType) {
                   case "heart":
@@ -65,7 +75,7 @@ const Viewer: FC<{ modelType: string }> = ({ modelType }) => {
                     return <Heart scale={1} />;
                 }
               })()}
-            </Suspense>
+            </Suspense> */}
           </Canvas>
           <div className="buttons">
             <button className="brand" onClick={onExport}>
