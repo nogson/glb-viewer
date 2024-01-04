@@ -20,9 +20,13 @@ function App() {
   return (
     <main>
       <div className="content">
-        <Viewer modelType={modelType} />
+        <Viewer modelType={modelType} setModelType={setModelType} />
       </div>
-      <Footer GlbModels={GlbModels} setModelType={setModelType} />
+      <Footer
+        GlbModels={GlbModels}
+        modelType={modelType}
+        setModelType={setModelType}
+      />
     </main>
   );
 }

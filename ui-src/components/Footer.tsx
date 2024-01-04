@@ -19,16 +19,20 @@ const footerStyle = css`
       &:nth-of-type(5n) {
         margin-right: 0;
       }
+      &.act {
+        border: 1px solid var(--color-bg-brand);
+      }
     }
   }
 `;
 
 interface FooterProps {
-  GlbModels: GlbModel[]; // Replace 'any' with the appropriate type for GlbModels
-  setModelType: (name: string) => void; // Replace 'any' with the appropriate type for setModelType
+  GlbModels: GlbModel[];
+  setModelType: (name: string) => void;
+  modelType: string;
 }
 
-const Footer: FC<FooterProps> = ({ GlbModels, setModelType }) => {
+const Footer: FC<FooterProps> = ({ GlbModels, setModelType, modelType }) => {
   return (
     <>
       <footer css={footerStyle}>
@@ -39,6 +43,7 @@ const Footer: FC<FooterProps> = ({ GlbModels, setModelType }) => {
                 src={model.thumb}
                 alt={model.name}
                 onClick={() => setModelType(model.name)}
+                className={modelType === model.name ? "act" : ""}
               />
             );
           })}

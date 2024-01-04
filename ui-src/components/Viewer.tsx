@@ -28,6 +28,7 @@ const viewerStyle = css`
 
 type ViewerProps = {
   modelType: string;
+  setModelType: (name: string) => void;
 };
 
 const getGLBComponent = (modelType: string) => {
@@ -43,7 +44,7 @@ const getGLBComponent = (modelType: string) => {
   }
 };
 
-const Viewer: FC<ViewerProps> = ({ modelType }) => {
+const Viewer: FC<ViewerProps> = ({ modelType, setModelType }) => {
   const [uploadData, setUploadData] = useState<Group<Object3DEventMap> | null>(
     null
   );
@@ -96,6 +97,7 @@ const Viewer: FC<ViewerProps> = ({ modelType }) => {
             <FileUpload
               setUploadData={setUploadData}
               setIsLoaded={setIsLoaded}
+              setModelType={setModelType}
             />
             <button className="brand" onClick={onExport}>
               Add

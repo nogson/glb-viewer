@@ -7,6 +7,7 @@ import { css } from "@emotion/react";
 type FileUploadProps = {
   setUploadData: (data: Group<Object3DEventMap> | null) => void;
   setIsLoaded: (isLoaded: boolean) => void;
+  setModelType: (name: string) => void;
 };
 
 const GLBModel: FC<{ scene: Group<Object3DEventMap> }> = ({ scene }) => {
@@ -29,7 +30,11 @@ const fileUploadStyle = css`
   }
 `;
 
-const FileUpload: FC<FileUploadProps> = ({ setUploadData, setIsLoaded }) => {
+const FileUpload: FC<FileUploadProps> = ({
+  setUploadData,
+  setIsLoaded,
+  setModelType,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onUpload = async () => {
@@ -41,6 +46,8 @@ const FileUpload: FC<FileUploadProps> = ({ setUploadData, setIsLoaded }) => {
       setTimeout(() => {
         const { scene } = useGLTF(url);
         setUploadData(scene);
+        // 選択中のモデルのアクティブを解除
+        setModelType("");
         URL.revokeObjectURL(url);
         setIsLoaded(false);
       }, 1000);
