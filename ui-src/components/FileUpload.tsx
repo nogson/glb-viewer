@@ -1,31 +1,32 @@
 import { FC, Suspense, useRef, useState } from "react";
+import { Group, Object3DEventMap } from "three";
 
 import { useGLTF } from "@react-three/drei";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Canvas } from "@react-three/fiber";
 
 type FileUploadProps = {
   // changeGlbData: (dataUrl: File | null) => void;
 };
 
-const GLBModel = ({ scene }) => {
+const GLBModel: FC<{ scene: Group<Object3DEventMap> }> = ({ scene }) => {
   return <primitive object={scene} />;
 };
 
 const FileUpload: FC<FileUploadProps> = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [uploadData, setUploadData] = useState<File | null>(null);
+  const [uploadData, setUploadData] = useState<Group<Object3DEventMap> | null>(
+    null
+  );
 
   const onUpload = async () => {
     if (inputRef.current?.files) {
-      const loader = new GLTFLoader();
       const url = URL.createObjectURL(inputRef.current.files[0]);
       useGLTF.preload(url);
+      // TODO 遅延させないと読み込めない
       setTimeout(() => {
         const { scene } = useGLTF(url);
-        console.log(scene);
         setUploadData(scene);
-      }, 1000);
+      }, 300);
     }
   };
 
