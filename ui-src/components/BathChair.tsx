@@ -10,8 +10,7 @@ import { GLTF } from 'three-stdlib'
 
 type GLTFResult = GLTF & {
   nodes: {
-    Circle_1: THREE.Mesh
-    Circle_2: THREE.Mesh
+    Circle: THREE.Mesh
     Circle001: THREE.Mesh
   }
   materials: {
@@ -24,14 +23,13 @@ type GLTFResult = GLTF & {
 type ContextType = Record<string, React.ForwardRefExoticComponent<JSX.IntrinsicElements['mesh']>>
 
 export default function Model(props: JSX.IntrinsicElements['group']) {
-  const { nodes, materials } = useGLTF('/BathChair.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('https://nogson.github.io/glb-viewer/ui-src/assets/glb/BathChair.glb') as GLTFResult
   return (
     <group {...props} dispose={null}>
+      <mesh geometry={nodes.Circle.geometry} material={materials.Material01} />
       <mesh geometry={nodes.Circle001.geometry} material={materials['Material02.001']} />
-      <mesh geometry={nodes.Circle_1.geometry} material={materials.Material01} />
-      <mesh geometry={nodes.Circle_2.geometry} material={materials.Material01} />
     </group>
   )
 }
 
-useGLTF.preload('/BathChair.glb')
+useGLTF.preload('https://nogson.github.io/glb-viewer/ui-src/assets/glb/BathChair.glb')

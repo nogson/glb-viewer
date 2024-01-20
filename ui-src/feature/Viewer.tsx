@@ -70,7 +70,7 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
             shadows
           >
             <OrbitControls />
-            <ambientLight intensity={3} />
+            <ambientLight intensity={1} />
             <directionalLight
               position={[5, 5, 5]}
               intensity={5}
@@ -78,7 +78,6 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
               shadow-mapSize-height={2048}
               castShadow
             />
-            <pointLight position={[10, 10, 10]} />
             <Suspense fallback={<Preloader />}>
               {uploadData ? (
                 <primitive object={uploadData} />
