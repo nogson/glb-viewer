@@ -10,6 +10,7 @@ import TubThumb from "../assets/images/thumb_tub.png";
 // import Motorcycle from "../components/Motorcycle";
 // import Locker from "../components/Locker";
 import Tub from "../components/Tub";
+import BathChair from "../components/BathChair";
 
 const GlbModels = [
   //   { name: "heart", thumb: HeartThumb, component: <Heart /> },
@@ -17,6 +18,7 @@ const GlbModels = [
   //   { name: "motorcycle", thumb: MotorcycleThumb, component: <Motorcycle /> },
   //   { name: "locker", thumb: MotorcycleThumb, component: <Locker /> },
   { name: "tub", thumb: TubThumb, component: <Tub /> },
+  { name: "bathChair", thumb: TubThumb, component: <BathChair /> },
 ];
 
 export default GlbModels;
