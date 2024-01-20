@@ -3,12 +3,10 @@ import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import Heart from "./Heart";
-import Cow from "./Cow";
-import Motorcycle from "./Motorcycle";
 import FileUpload from "./FileUpload";
 import { Group, Object3DEventMap } from "three";
-import Preloader from "./Preloader";
+import Preloader from "../components/Preloader";
+import { GlbModel } from "../types/commonTypes";
 
 const viewerStyle = css`
   .canvas {
@@ -29,22 +27,10 @@ const viewerStyle = css`
 type ViewerProps = {
   modelType: string;
   setModelType: (name: string) => void;
+  models: GlbModel[];
 };
 
-const getGLBComponent = (modelType: string) => {
-  switch (modelType) {
-    case "heart":
-      return <Heart />;
-    case "cow":
-      return <Cow />;
-    case "motorcycle":
-      return <Motorcycle />;
-    default:
-      return <Heart />;
-  }
-};
-
-const Viewer: FC<ViewerProps> = ({ modelType, setModelType }) => {
+const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
   const [uploadData, setUploadData] = useState<Group<Object3DEventMap> | null>(
     null
   );
@@ -53,6 +39,14 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType }) => {
     const canvas = document.querySelector("canvas");
     const dataUrl = canvas?.toDataURL("image/png");
     parent.postMessage({ pluginMessage: { type: "export", dataUrl } }, "*");
+  };
+
+  console.log(models);
+
+  const getGLBComponent = (modelType: string) => {
+    // nameがmodelTypeと一致するものを返す
+    const model = models.find((model) => model.name === modelType);
+    return model?.component;
   };
 
   useEffect(() => {

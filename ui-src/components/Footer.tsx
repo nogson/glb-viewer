@@ -27,17 +27,17 @@ const footerStyle = css`
 `;
 
 interface FooterProps {
-  GlbModels: GlbModel[];
+  models: GlbModel[];
   setModelType: (name: string) => void;
   modelType: string;
 }
 
-const Footer: FC<FooterProps> = ({ GlbModels, setModelType, modelType }) => {
+const Footer: FC<FooterProps> = ({ models, setModelType, modelType }) => {
   return (
     <>
       <footer css={footerStyle}>
         <div className="thumbnail">
-          {GlbModels.map((model) => {
+          {models.map((model) => {
             return (
               <img
                 src={model.thumb}

@@ -2,28 +2,27 @@ import { Suspense, useRef, useState } from "react";
 import "./App.css";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stats, Environment, Sphere, OrbitControls } from "@react-three/drei";
-import HeartThumb from "./assets/images/thumb_heart.png";
-import CowThumb from "./assets/images/thumb_cow.png";
-import MotorcycleThumb from "./assets/images/thumb_Motorcycle.png";
+// import Locker from "./assets/images/thumb_Locker.png";
 import Footer from "./components/Footer";
-import Viewer from "./components/Viewer";
+import Viewer from "./feature/Viewer";
+import GlbModels from "./constants/GlbModels";
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [modelType, setModelType] = useState<string>("heart");
-  const GlbModels = [
-    { name: "heart", thumb: HeartThumb },
-    { name: "cow", thumb: CowThumb },
-    { name: "motorcycle", thumb: MotorcycleThumb },
-  ];
+  const models = GlbModels;
 
   return (
     <main>
       <div className="content">
-        <Viewer modelType={modelType} setModelType={setModelType} />
+        <Viewer
+          modelType={modelType}
+          setModelType={setModelType}
+          models={models}
+        />
       </div>
       <Footer
-        GlbModels={GlbModels}
+        models={models}
         modelType={modelType}
         setModelType={setModelType}
       />
