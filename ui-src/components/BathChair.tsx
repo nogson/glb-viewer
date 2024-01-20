@@ -10,7 +10,8 @@ import { GLTF } from "three-stdlib";
 
 type GLTFResult = GLTF & {
   nodes: {
-    Circle: THREE.Mesh;
+    Circle_1: THREE.Mesh;
+    Circle_2: THREE.Mesh;
     Circle001: THREE.Mesh;
   };
   materials: {
@@ -31,10 +32,17 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   ) as GLTFResult;
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.Circle.geometry} material={materials.Material01} />
       <mesh
         geometry={nodes.Circle001.geometry}
         material={materials["Material02.001"]}
+      />
+      <mesh
+        geometry={nodes.Circle_1.geometry}
+        material={materials.Material01}
+      />
+      <mesh
+        geometry={nodes.Circle_2.geometry}
+        material={materials.Material01}
       />
     </group>
   );
