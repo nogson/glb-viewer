@@ -1,12 +1,13 @@
-import { FC, useState, Suspense, useEffect } from "react";
+import { FC, useState, Suspense, useEffect, useRef } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import FileUpload from "./FileUpload";
-import { Group, Object3DEventMap } from "three";
+import * as THREE from "three";
 import Preloader from "../components/Preloader";
 import { GlbModel } from "../types/commonTypes";
+import GlbGroup from "../components/GlbGroup";
 
 const viewerStyle = css`
   .canvas {
@@ -34,19 +35,12 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
   const [uploadData, setUploadData] = useState<Group<Object3DEventMap> | null>(
     null
   );
+
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const onExport = () => {
     const canvas = document.querySelector("canvas");
     const dataUrl = canvas?.toDataURL("image/png");
     parent.postMessage({ pluginMessage: { type: "export", dataUrl } }, "*");
-  };
-
-  console.log(models);
-
-  const getGLBComponent = (modelType: string) => {
-    // nameがmodelTypeと一致するものを返す
-    const model = models.find((model) => model.name === modelType);
-    return model?.component;
   };
 
   useEffect(() => {
@@ -82,7 +76,11 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
               {uploadData ? (
                 <primitive object={uploadData} />
               ) : (
-                getGLBComponent(modelType)
+                <GlbGroup
+                  modelType={modelType}
+                  models={models}
+                  uploadData={uploadData}
+                />
               )}
             </Suspense>
           </Canvas>
