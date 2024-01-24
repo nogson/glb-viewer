@@ -1,6 +1,7 @@
 import * as THREE from "three";
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { GlbModel } from "../types/commonTypes";
+import { Vector3 } from "@react-three/fiber";
 
 type ViewerProps = {
   modelType: string;
@@ -10,6 +11,8 @@ type ViewerProps = {
 
 const GlbGroup: FC<ViewerProps> = ({ models, modelType, uploadData }) => {
   const groupRef = useRef<THREE.Group>();
+  const [defaultScale, setDefaultScale] = useState<Vector3>([1, 1, 1]);
+  const [defaultPosition, setDefaultPosition] = useState<Vector3>([0, 0, 0]);
 
   const getGLBComponent = (modelType: string) => {
     // nameがmodelTypeと一致するものを返す
@@ -17,18 +20,43 @@ const GlbGroup: FC<ViewerProps> = ({ models, modelType, uploadData }) => {
     return model?.component;
   };
 
+  const getDefaultObjectVal = (
+    object: THREE.Object3D<THREE.Object3DEventMap>
+  ): {
+    scale: Vector3;
+    position: Vector3;
+  } => {
+    const baseSize = 2;
+    const boundingBox = new THREE.Box3().setFromObject(object);
+    const size = boundingBox.getSize(new THREE.Vector3());
+    const position = boundingBox.getCenter(new THREE.Vector3());
+    const scale = baseSize / size.x;
+    return {
+      scale: [scale, scale, scale],
+      position: [-position.x * scale, -position.y * scale, -position.z * scale],
+    };
+  };
+
   useEffect(() => {
-    if (groupRef.current) {
-      const boundingBox = new THREE.Box3().setFromObject(groupRef.current);
-      const size = boundingBox.getSize(new THREE.Vector3());
-      console.log("モデルのサイズ:", size);
-    }
+    setDefaultScale([1, 1, 1]);
+    setDefaultPosition([0, 0, 0]);
+    setTimeout(() => {
+      if (groupRef.current) {
+        const defaultVal = getDefaultObjectVal(groupRef.current);
+        setDefaultScale(defaultVal.scale);
+        setDefaultPosition(defaultVal.position);
+      }
+    }, 0);
   }, [modelType, groupRef]);
 
   if (uploadData) {
     return <primitive object={uploadData} />;
   } else {
-    return <group ref={groupRef}>{getGLBComponent(modelType)}</group>;
+    return (
+      <group ref={groupRef} scale={defaultScale} position={defaultPosition}>
+        {getGLBComponent(modelType)}
+      </group>
+    );
   }
 };
 

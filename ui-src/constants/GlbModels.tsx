@@ -4,14 +4,16 @@
 // import MotorcycleThumb from "../assets/images/thumb_Motorcycle.png";
 import TubThumb from "../assets/images/thumb_tub.png";
 import BathChairThumb from "../assets/images/thumb_bathChair.png";
+import BathThumb from "../assets/images/thumb_bath.png";
 
 // models
 // import Heart from "../components/Heart";
 // import Cow from "../components/Cow";
 // import Motorcycle from "../components/Motorcycle";
-// import Locker from "../components/Locker";
+import Locker from "../components/Locker";
 import Tub from "../components/Tub";
 import BathChair from "../components/BathChair";
+import Bath from "../components/Bath";
 
 const GlbModels = [
   //   { name: "heart", thumb: HeartThumb, component: <Heart /> },
@@ -20,6 +22,8 @@ const GlbModels = [
   //   { name: "locker", thumb: MotorcycleThumb, component: <Locker /> },
   { name: "tub", thumb: TubThumb, component: <Tub /> },
   { name: "bathChair", thumb: BathChairThumb, component: <BathChair /> },
+  { name: "bath", thumb: BathThumb, component: <Bath /> },
+  { name: "locker", thumb: BathThumb, component: <Locker /> },
 ];
 
 export default GlbModels;
