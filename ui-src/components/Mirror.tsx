@@ -10,10 +10,12 @@ import { GLTF } from "three-stdlib";
 
 type GLTFResult = GLTF & {
   nodes: {
+    washStand001: THREE.Mesh;
     washStand: THREE.Mesh;
     Cube004: THREE.Mesh;
   };
   materials: {
+    ["wood-box"]: THREE.MeshStandardMaterial;
     ["Material.001"]: THREE.MeshStandardMaterial;
     ["floor.001"]: THREE.MeshStandardMaterial;
   };
@@ -30,6 +32,13 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   ) as GLTFResult;
   return (
     <group {...props} dispose={null}>
+      <mesh
+        geometry={nodes.washStand001.geometry}
+        material={materials["wood-box"]}
+        position={[-0.046, 8.003, -2.225]}
+        rotation={[0, Math.PI / 2, 0]}
+        scale={[0.088, 2.828, 8.729]}
+      />
       <mesh
         geometry={nodes.washStand.geometry}
         material={materials["Material.001"]}
