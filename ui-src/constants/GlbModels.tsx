@@ -14,6 +14,7 @@ import Locker from "../components/Locker";
 import Tub from "../components/Tub";
 import BathChair from "../components/BathChair";
 import Bath from "../components/Bath";
+import Mirror from "../components/Mirror";
 
 const GlbModels = [
   //   { name: "heart", thumb: HeartThumb, component: <Heart /> },
@@ -24,6 +25,7 @@ const GlbModels = [
   { name: "bathChair", thumb: BathChairThumb, component: <BathChair /> },
   { name: "bath", thumb: BathThumb, component: <Bath /> },
   { name: "locker", thumb: LockerThumb, component: <Locker /> },
+  { name: "mirror", thumb: LockerThumb, component: <Mirror /> },
 ];
 
 export default GlbModels;
