@@ -18,7 +18,6 @@ type GLTFResult = GLTF & {
     Material01: THREE.MeshStandardMaterial;
     ["Material02.001"]: THREE.MeshStandardMaterial;
   };
-  animations: GLTFAction[];
 };
 
 type ContextType = Record<

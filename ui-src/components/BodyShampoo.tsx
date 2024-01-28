@@ -12,11 +12,12 @@ type GLTFResult = GLTF & {
   nodes: {
     Cube: THREE.Mesh;
     Cylinder: THREE.Mesh;
-    Cylinder001: THREE.Mesh;
+    Cube001: THREE.Mesh;
   };
   materials: {
     Material: THREE.MeshStandardMaterial;
     ["Material.001"]: THREE.MeshStandardMaterial;
+    ["Material.002"]: THREE.MeshStandardMaterial;
   };
 };
 
@@ -37,8 +38,8 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
         material={materials["Material.001"]}
       />
       <mesh
-        geometry={nodes.Cylinder001.geometry}
-        material={nodes.Cylinder001.material}
+        geometry={nodes.Cube001.geometry}
+        material={materials["Material.002"]}
       />
     </group>
   );
