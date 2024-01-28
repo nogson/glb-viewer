@@ -72,7 +72,7 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
               shadow-mapSize-height={2048}
               castShadow
             />
-            <Suspense fallback={<Preloader />}>
+            <Suspense fallback={null}>
               {uploadData ? (
                 <primitive object={uploadData} />
               ) : (

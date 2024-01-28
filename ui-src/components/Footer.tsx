@@ -40,6 +40,7 @@ const Footer: FC<FooterProps> = ({ models, setModelType, modelType }) => {
           {models.map((model) => {
             return (
               <img
+                key={model.name}
                 src={model.thumb}
                 alt={model.name}
                 onClick={() => setModelType(model.name)}

@@ -29,8 +29,9 @@ const GlbGroup: FC<ViewerProps> = ({ models, modelType, uploadData }) => {
     const baseSize = 2;
     const boundingBox = new THREE.Box3().setFromObject(object);
     const size = boundingBox.getSize(new THREE.Vector3());
+    console.log(size);
     const position = boundingBox.getCenter(new THREE.Vector3());
-    const scale = baseSize / size.x;
+    const scale = size.x > size.y ? baseSize / size.x : baseSize / size.y;
     return {
       scale: [scale, scale, scale],
       position: [-position.x * scale, -position.y * scale, -position.z * scale],
