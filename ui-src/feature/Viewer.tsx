@@ -1,6 +1,10 @@
 import { FC, useState, Suspense, useEffect, useRef } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import {
+  OrbitControls,
+  OrthographicCamera,
+  PerspectiveCamera,
+} from "@react-three/drei";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import FileUpload from "./FileUpload";
@@ -8,6 +12,8 @@ import * as THREE from "three";
 import Preloader from "../components/Preloader";
 import { GlbModel } from "../types/commonTypes";
 import GlbGroup from "../components/GlbGroup";
+import Light from "./Light";
+import { useControls, Leva } from "leva";
 
 const viewerStyle = css`
   .canvas {
@@ -32,6 +38,58 @@ type ViewerProps = {
 };
 
 const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
+  // const { useAmbientLight, useDirectionalLight } = useControls({
+  //   useAmbientLight: true,
+  //   useDirectionalLight: true,
+  // });
+
+  const {
+    cameraType,
+    AmbientLight,
+    DirectionalLight,
+    DirectionalLightPosition,
+    UseEnvironment,
+    Environment,
+  } = useControls({
+    cameraType: {
+      value: "Perspective",
+      options: ["Perspective", "Orthographic"],
+    },
+    AmbientLight: {
+      value: 1,
+      min: 0,
+      max: 3,
+      step: 0.1,
+    },
+    DirectionalLight: {
+      value: 5,
+      min: 0,
+      max: 10,
+      step: 0.5,
+    },
+    DirectionalLightPosition: {
+      value: [5, 5, 5],
+      min: -50,
+      max: 50,
+      step: 1,
+    },
+    UseEnvironment: false,
+    Environment: {
+      options: [
+        "sunset",
+        "dawn",
+        "night",
+        "warehouse",
+        "forest",
+        "apartment",
+        "studio",
+        "city",
+        "park",
+        "lobby",
+      ],
+    },
+  });
+
   const [uploadData, setUploadData] = useState<Group<Object3DEventMap> | null>(
     null
   );
@@ -47,30 +105,53 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
     setUploadData(null);
   }, [modelType]);
 
+  function CetCamera() {
+    if (cameraType === "Perspective") {
+      return (
+        <PerspectiveCamera
+          makeDefault
+          position={[0, 0, 3]}
+          fov={50}
+          aspect={window.innerWidth / window.innerHeight}
+          near={0.1}
+          far={2000}
+        />
+      );
+    } else {
+      return (
+        <OrthographicCamera
+          makeDefault
+          zoom={2.3}
+          top={3}
+          bottom={-3}
+          left={-3}
+          right={3}
+          near={0.1}
+          far={2000}
+          position={[0, 0, 3]}
+        />
+      );
+    }
+  }
+
   return (
     <>
+      <Leva collapsed={true} />
       <div css={viewerStyle}>
         <div className="canvas">
           <Canvas
             gl={{ preserveDrawingBuffer: true }}
-            camera={{
-              position: [0, 0, 3],
-              fov: 50,
-              aspect: window.innerWidth / window.innerHeight,
-              near: 0.1,
-              far: 2000,
-            }}
             dpr={window.devicePixelRatio}
             shadows
           >
+            <CetCamera />
             <OrbitControls />
-            <ambientLight intensity={1} />
-            <directionalLight
-              position={[5, 5, 5]}
-              intensity={5}
-              shadow-mapSize-width={2048}
-              shadow-mapSize-height={2048}
-              castShadow
+            <Light
+              ambientLight={AmbientLight}
+              directionalLight={DirectionalLight}
+              directionalLightPosition={DirectionalLightPosition}
+              useEnvironment={UseEnvironment}
+              environment={Environment}
             />
             <Suspense fallback={null}>
               {uploadData ? (
