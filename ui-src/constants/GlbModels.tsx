@@ -7,6 +7,7 @@ import MirrorThumb from "../assets/images/thumb_mirror.png";
 import ShampooThumb from "../assets/images/thumb_shampoo.png";
 import BodyShampooThumb from "../assets/images/thumb_bodyShampoo.png";
 import ShowerThumb from "../assets/images/thumb_shower.png";
+import BodyScaleThumb from "../assets/images/thumb_bodyScale.png";
 
 // models
 import Locker from "../components/Locker";
@@ -17,6 +18,7 @@ import Mirror from "../components/Mirror";
 import Shower from "../components/Shower";
 import Shampoo from "../components/Shampoo";
 import BodyShampoo from "../components/BodyShampoo";
+import BodyScale from "../components/BodyScale";
 
 const GlbModels = [
   { name: "tub", thumb: TubThumb, component: <Tub /> },
@@ -27,6 +29,7 @@ const GlbModels = [
   { name: "shower", thumb: ShowerThumb, component: <Shower /> },
   { name: "shampoo", thumb: ShampooThumb, component: <Shampoo /> },
   { name: "bodyShampoo", thumb: BodyShampooThumb, component: <BodyShampoo /> },
+  { name: "bodyScale", thumb: BodyScaleThumb, component: <BodyScale /> },
 ];
 
 export default GlbModels;

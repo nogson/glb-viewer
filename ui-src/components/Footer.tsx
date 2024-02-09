@@ -5,7 +5,7 @@ import { css } from "@emotion/react";
 import { GlbModel } from "../types/commonTypes";
 
 const footerStyle = css`
-  padding: 8px;
+  padding: 8px 8px 0 8px;
   background: #f7f7f7;
   min-height: 100px;
   .thumbnail {

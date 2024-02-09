@@ -8,7 +8,6 @@ import {
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import FileUpload from "./FileUpload";
-import * as THREE from "three";
 import Preloader from "../components/Preloader";
 import { GlbModel } from "../types/commonTypes";
 import GlbGroup from "../components/GlbGroup";
@@ -18,6 +17,7 @@ import { useControls, Leva } from "leva";
 const viewerStyle = css`
   .canvas {
     height: 400px;
+    margin: 40px 0 0 0;
   }
   .buttons {
     display: flex;
@@ -38,11 +38,6 @@ type ViewerProps = {
 };
 
 const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
-  // const { useAmbientLight, useDirectionalLight } = useControls({
-  //   useAmbientLight: true,
-  //   useDirectionalLight: true,
-  // });
-
   const {
     cameraType,
     AmbientLight,
@@ -90,20 +85,13 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
     },
   });
 
-  const [uploadData, setUploadData] = useState<Group<Object3DEventMap> | null>(
-    null
-  );
-
+  const [uploadData, setUploadData] = useState<any>(null);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const onExport = () => {
     const canvas = document.querySelector("canvas");
     const dataUrl = canvas?.toDataURL("image/png");
     parent.postMessage({ pluginMessage: { type: "export", dataUrl } }, "*");
   };
-
-  useEffect(() => {
-    setUploadData(null);
-  }, [modelType]);
 
   function CetCamera() {
     if (cameraType === "Perspective") {
@@ -134,6 +122,12 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
     }
   }
 
+  useEffect(() => {
+    if (modelType) {
+      setUploadData(null);
+    }
+  }, [modelType, uploadData]);
+
   return (
     <>
       <Leva collapsed={true} />
@@ -154,15 +148,11 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
               environment={Environment}
             />
             <Suspense fallback={null}>
-              {uploadData ? (
-                <primitive object={uploadData} />
-              ) : (
-                <GlbGroup
-                  modelType={modelType}
-                  models={models}
-                  uploadData={uploadData}
-                />
-              )}
+              <GlbGroup
+                modelType={modelType}
+                models={models}
+                uploadData={uploadData}
+              />
             </Suspense>
           </Canvas>
           <div className="buttons">

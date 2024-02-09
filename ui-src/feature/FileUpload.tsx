@@ -1,7 +1,6 @@
 import { FC, Suspense, useRef, useState } from "react";
 import { Group, Object3DEventMap } from "three";
 import { useGLTF } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
 import { css } from "@emotion/react";
 
 type FileUploadProps = {
@@ -38,9 +37,10 @@ const FileUpload: FC<FileUploadProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onUpload = async () => {
-    if (inputRef.current?.files) {
+    const data = inputRef.current?.files;
+    if (data && data.length > 0) {
       setIsLoaded(true);
-      const url = URL.createObjectURL(inputRef.current.files[0]);
+      const url = URL.createObjectURL(data[0]);
       useGLTF.preload(url);
       // TODO 遅延させないと読み込めない
       setTimeout(() => {

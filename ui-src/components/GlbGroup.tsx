@@ -21,7 +21,7 @@ const GlbGroup: FC<ViewerProps> = ({ models, modelType, uploadData }) => {
   };
 
   const getDefaultObjectVal = (
-    object: THREE.Object3D<THREE.Object3DEventMap>
+    object: any
   ): {
     scale: Vector3;
     position: Vector3;
@@ -29,7 +29,6 @@ const GlbGroup: FC<ViewerProps> = ({ models, modelType, uploadData }) => {
     const baseSize = 2;
     const boundingBox = new THREE.Box3().setFromObject(object);
     const size = boundingBox.getSize(new THREE.Vector3());
-    console.log(size);
     const position = boundingBox.getCenter(new THREE.Vector3());
     const scale = size.x > size.y ? baseSize / size.x : baseSize / size.y;
     return {
@@ -42,23 +41,23 @@ const GlbGroup: FC<ViewerProps> = ({ models, modelType, uploadData }) => {
     setDefaultScale([1, 1, 1]);
     setDefaultPosition([0, 0, 0]);
     setTimeout(() => {
-      if (groupRef.current) {
+      if (groupRef.current || uploadData) {
         const defaultVal = getDefaultObjectVal(groupRef.current);
         setDefaultScale(defaultVal.scale);
         setDefaultPosition(defaultVal.position);
       }
     }, 0);
-  }, [modelType, groupRef]);
+  }, [modelType, groupRef, uploadData]);
 
-  if (uploadData) {
-    return <primitive object={uploadData} />;
-  } else {
-    return (
-      <group ref={groupRef} scale={defaultScale} position={defaultPosition}>
-        {getGLBComponent(modelType)}
-      </group>
-    );
-  }
+  return (
+    <group ref={groupRef} scale={defaultScale} position={defaultPosition}>
+      {uploadData ? (
+        <primitive object={uploadData} />
+      ) : (
+        getGLBComponent(modelType)
+      )}
+    </group>
+  );
 };
 
 export default GlbGroup;
