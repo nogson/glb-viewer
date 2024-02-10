@@ -15,11 +15,18 @@ type GLTFResult = GLTF & {
     Cube001: THREE.Mesh;
     Plane: THREE.Mesh;
     Cylinder: THREE.Mesh;
-    Cylinder005: THREE.Mesh;
     Cylinder005_1: THREE.Mesh;
+    Cylinder005_2: THREE.Mesh;
     Cube002: THREE.Mesh;
     BezierCurve: THREE.Mesh;
     Cylinder003: THREE.Mesh;
+    Cylinder004: THREE.Mesh;
+    Cylinder005: THREE.Mesh;
+    Cylinder006_1: THREE.Mesh;
+    Cylinder006_2: THREE.Mesh;
+    Cube003: THREE.Mesh;
+    BezierCurve001: THREE.Mesh;
+    Plane001: THREE.Mesh;
   };
   materials: {
     ["floor.002"]: THREE.MeshStandardMaterial;
@@ -77,11 +84,11 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
         scale={[0.185, 0.051, 0.185]}
       >
         <mesh
-          geometry={nodes.Cylinder005.geometry}
+          geometry={nodes.Cylinder005_1.geometry}
           material={materials.Material}
         />
         <mesh
-          geometry={nodes.Cylinder005_1.geometry}
+          geometry={nodes.Cylinder005_2.geometry}
           material={materials["Material.003"]}
         />
       </group>
@@ -101,6 +108,53 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
         material={materials["Material.004"]}
         position={[1.548, 2.755, 0.555]}
         rotation={[0.213, 0, 0]}
+      />
+      <mesh
+        geometry={nodes.Cylinder004.geometry}
+        material={materials["Material.002"]}
+        position={[-0.016, 0.782, -1.185]}
+        rotation={[-Math.PI, 0, Math.PI / 2]}
+        scale={[0.145, 0.373, 0.145]}
+      />
+      <mesh
+        geometry={nodes.Cylinder005.geometry}
+        material={materials["Material.002"]}
+        position={[-1.625, 2.746, -0.602]}
+        rotation={[2.929, 0, Math.PI]}
+      />
+      <group
+        position={[-1.625, 2.752, -0.49]}
+        rotation={[Math.PI / 2, 0, Math.PI]}
+        scale={[0.185, 0.051, 0.185]}
+      >
+        <mesh
+          geometry={nodes.Cylinder006_1.geometry}
+          material={materials.Material}
+        />
+        <mesh
+          geometry={nodes.Cylinder006_2.geometry}
+          material={materials["Material.003"]}
+        />
+      </group>
+      <mesh
+        geometry={nodes.Cube003.geometry}
+        material={materials["Material.002"]}
+        position={[-1.624, 2.446, -0.437]}
+        rotation={[Math.PI, 0, Math.PI]}
+        scale={[0.12, 0.119, 0.119]}
+      />
+      <mesh
+        geometry={nodes.BezierCurve001.geometry}
+        material={materials["Material.003"]}
+        position={[-0.077, 1.351, -1.046]}
+        rotation={[Math.PI, 0, Math.PI]}
+      />
+      <mesh
+        geometry={nodes.Plane001.geometry}
+        material={materials["Material.001"]}
+        position={[-0.034, 2.526, -0.38]}
+        rotation={[Math.PI / 2, 0, 0]}
+        scale={[1.232, 1, 1.024]}
       />
     </group>
   );

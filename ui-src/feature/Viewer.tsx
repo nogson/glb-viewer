@@ -133,38 +133,38 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
       <Leva collapsed={true} />
       <div css={viewerStyle}>
         <div className="canvas">
-          <Canvas
-            gl={{ preserveDrawingBuffer: true }}
-            dpr={window.devicePixelRatio}
-            shadows
-          >
-            <CetCamera />
-            <OrbitControls />
-            <Light
-              ambientLight={AmbientLight}
-              directionalLight={DirectionalLight}
-              directionalLightPosition={DirectionalLightPosition}
-              useEnvironment={UseEnvironment}
-              environment={Environment}
-            />
-            <Suspense fallback={null}>
+          <Suspense fallback={<Preloader />}>
+            <Canvas
+              gl={{ preserveDrawingBuffer: true }}
+              dpr={window.devicePixelRatio}
+              shadows
+            >
+              <CetCamera />
+              <OrbitControls />
+              <Light
+                ambientLight={AmbientLight}
+                directionalLight={DirectionalLight}
+                directionalLightPosition={DirectionalLightPosition}
+                useEnvironment={UseEnvironment}
+                environment={Environment}
+              />
               <GlbGroup
                 modelType={modelType}
                 models={models}
                 uploadData={uploadData}
               />
-            </Suspense>
-          </Canvas>
-          <div className="buttons">
-            <FileUpload
-              setUploadData={setUploadData}
-              setIsLoaded={setIsLoaded}
-              setModelType={setModelType}
-            />
-            <button className="brand" onClick={onExport}>
-              Add
-            </button>
-          </div>
+            </Canvas>
+            <div className="buttons">
+              <FileUpload
+                setUploadData={setUploadData}
+                setIsLoaded={setIsLoaded}
+                setModelType={setModelType}
+              />
+              <button className="brand" onClick={onExport}>
+                Add
+              </button>
+            </div>
+          </Suspense>
         </div>
         {isLoaded && <Preloader />}
       </div>

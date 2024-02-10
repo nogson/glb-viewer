@@ -21,6 +21,7 @@ import Shampoo from "../components/Shampoo";
 import BodyShampoo from "../components/BodyShampoo";
 import BodyScale from "../components/BodyScale";
 import Chair from "../components/Chair";
+import Bucket from "../components/Bucket";
 
 const GlbModels = [
   { name: "tub", thumb: TubThumb, component: <Tub /> },
@@ -33,6 +34,7 @@ const GlbModels = [
   { name: "shampoo", thumb: ShampooThumb, component: <Shampoo /> },
   { name: "bodyShampoo", thumb: BodyShampooThumb, component: <BodyShampoo /> },
   { name: "bodyScale", thumb: BodyScaleThumb, component: <BodyScale /> },
+  { name: "bucket", thumb: BodyScaleThumb, component: <Bucket /> },
 ];
 
 export default GlbModels;
