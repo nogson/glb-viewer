@@ -9,6 +9,7 @@ import BodyShampooThumb from "../assets/images/thumb_bodyShampoo.png";
 import ShowerThumb from "../assets/images/thumb_shower.png";
 import BodyScaleThumb from "../assets/images/thumb_bodyScale.png";
 import ChairThumb from "../assets/images/thumb_chair.png";
+import BucketThumb from "../assets/images/thumb_bucket.png";
 
 // models
 import Locker from "../components/Locker";
@@ -34,7 +35,7 @@ const GlbModels = [
   { name: "shampoo", thumb: ShampooThumb, component: <Shampoo /> },
   { name: "bodyShampoo", thumb: BodyShampooThumb, component: <BodyShampoo /> },
   { name: "bodyScale", thumb: BodyScaleThumb, component: <BodyScale /> },
-  { name: "bucket", thumb: BodyScaleThumb, component: <Bucket /> },
+  { name: "bucket", thumb: BucketThumb, component: <Bucket /> },
 ];
 
 export default GlbModels;
