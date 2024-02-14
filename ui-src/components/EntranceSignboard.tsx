@@ -29,7 +29,7 @@ type ContextType = Record<
   React.ForwardRefExoticComponent<JSX.IntrinsicElements["mesh"]>
 >;
 
-export function Model(props: JSX.IntrinsicElements["group"]) {
+export default function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
     "https://nogson.github.io/glb-viewer/ui-src/assets/glb/EntranceSignboard.glb"
   ) as GLTFResult;

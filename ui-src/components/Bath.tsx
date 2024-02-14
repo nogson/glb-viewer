@@ -24,7 +24,7 @@ type ContextType = Record<
 
 export default function Model(props: JSX.IntrinsicElements["group"]) {
   const { nodes, materials } = useGLTF(
-    "gs://glbviewer.appspot.com/glb/Bath.glb"
+    "https://nogson.github.io/glb-viewer/ui-src/assets/glb/Bath.glb"
   ) as GLTFResult;
   return (
     <group {...props} dispose={null}>
@@ -36,4 +36,6 @@ export default function Model(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("gs://glbviewer.appspot.com/glb/Bath.glb");
+useGLTF.preload(
+  "https://nogson.github.io/glb-viewer/ui-src/assets/glb/Bath.glb"
+);
