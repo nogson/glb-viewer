@@ -6,19 +6,13 @@ import { Vector3 } from "@react-three/fiber";
 type ViewerProps = {
   modelType: string;
   models: GlbModel[];
-  uploadData: any;
+  component: any;
 };
 
-const GlbGroup: FC<ViewerProps> = ({ models, modelType, uploadData }) => {
+const GlbGroup: FC<ViewerProps> = ({ models, modelType, component }) => {
   const groupRef = useRef<THREE.Group>();
   const [defaultScale, setDefaultScale] = useState<Vector3>([1, 1, 1]);
   const [defaultPosition, setDefaultPosition] = useState<Vector3>([0, 0, 0]);
-
-  const getGLBComponent = (modelType: string) => {
-    // nameがmodelTypeと一致するものを返す
-    const model = models.find((model) => model.name === modelType);
-    return model?.component;
-  };
 
   const getDefaultObjectVal = (
     object: any
@@ -41,21 +35,17 @@ const GlbGroup: FC<ViewerProps> = ({ models, modelType, uploadData }) => {
     setDefaultScale([1, 1, 1]);
     setDefaultPosition([0, 0, 0]);
     setTimeout(() => {
-      if (groupRef.current || uploadData) {
+      if (groupRef.current) {
         const defaultVal = getDefaultObjectVal(groupRef.current);
         setDefaultScale(defaultVal.scale);
         setDefaultPosition(defaultVal.position);
       }
     }, 0);
-  }, [modelType, groupRef, uploadData]);
+  }, [modelType, groupRef, component]);
 
   return (
     <group ref={groupRef} scale={defaultScale} position={defaultPosition}>
-      {uploadData ? (
-        <primitive object={uploadData} />
-      ) : (
-        getGLBComponent(modelType)
-      )}
+      {component}
     </group>
   );
 };

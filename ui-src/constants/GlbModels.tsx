@@ -10,6 +10,7 @@ import ShowerThumb from "../assets/images/thumb_shower.png";
 import BodyScaleThumb from "../assets/images/thumb_bodyScale.png";
 import ChairThumb from "../assets/images/thumb_chair.png";
 import BucketThumb from "../assets/images/thumb_bucket.png";
+import EntranceSignboardThumb from "../assets/images/thumb_entranceSignboard.png";
 
 // models
 import Locker from "../components/Locker";
@@ -23,19 +24,24 @@ import BodyShampoo from "../components/BodyShampoo";
 import BodyScale from "../components/BodyScale";
 import Chair from "../components/Chair";
 import Bucket from "../components/Bucket";
+import EntranceSignboard from "../components/EntranceSignboard";
 
 const GlbModels = [
-  { name: "tub", thumb: TubThumb, component: <Tub /> },
-  { name: "bathChair", thumb: BathChairThumb, component: <BathChair /> },
-  { name: "bath", thumb: BathThumb, component: <Bath /> },
-  { name: "locker", thumb: LockerThumb, component: <Locker /> },
-  { name: "Chair", thumb: ChairThumb, component: <Chair /> },
-  { name: "mirror", thumb: MirrorThumb, component: <Mirror /> },
-  { name: "shower", thumb: ShowerThumb, component: <Shower /> },
-  { name: "shampoo", thumb: ShampooThumb, component: <Shampoo /> },
-  { name: "bodyShampoo", thumb: BodyShampooThumb, component: <BodyShampoo /> },
-  { name: "bodyScale", thumb: BodyScaleThumb, component: <BodyScale /> },
-  { name: "bucket", thumb: BucketThumb, component: <Bucket /> },
+  { name: "Tub", thumb: TubThumb },
+  { name: "BathChair", thumb: BathChairThumb },
+  { name: "Bath", thumb: BathThumb },
+  { name: "Locker", thumb: LockerThumb },
+  { name: "Chair", thumb: ChairThumb },
+  { name: "Mirror", thumb: MirrorThumb },
+  { name: "Shower", thumb: ShowerThumb },
+  { name: "Shampoo", thumb: ShampooThumb },
+  { name: "BodyShampoo", thumb: BodyShampooThumb },
+  { name: "BodyScale", thumb: BodyScaleThumb },
+  { name: "Bucket", thumb: BucketThumb },
+  {
+    name: "EntranceSignboard",
+    thumb: EntranceSignboardThumb,
+  },
 ];
 
 export default GlbModels;

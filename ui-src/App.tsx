@@ -9,7 +9,7 @@ import GlbModels from "./constants/GlbModels";
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [modelType, setModelType] = useState<string>("tub");
+  const [modelType, setModelType] = useState<string>("Tub");
   const models = GlbModels;
 
   return (

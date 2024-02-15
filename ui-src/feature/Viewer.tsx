@@ -1,4 +1,4 @@
-import { FC, useState, Suspense, useEffect, useRef } from "react";
+import { FC, useState, Suspense, useEffect, useRef, lazy } from "react";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -7,11 +7,11 @@ import {
 } from "@react-three/drei";
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import FileUpload from "./FileUpload";
+import FileUpload from "../feature/FileUpload";
 import Preloader from "../components/Preloader";
 import { GlbModel } from "../types/commonTypes";
 import GlbGroup from "../components/GlbGroup";
-import Light from "./Light";
+import Light from "../feature/Light";
 import { useControls, Leva } from "leva";
 
 const viewerStyle = css`
@@ -128,6 +128,8 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
     }
   }, [modelType, uploadData]);
 
+  const GLBComponent = lazy(() => import(`../components/${modelType}.tsx`));
+
   return (
     <>
       <Leva collapsed={true} />
@@ -148,10 +150,17 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
                 useEnvironment={UseEnvironment}
                 environment={Environment}
               />
+
               <GlbGroup
                 modelType={modelType}
                 models={models}
-                uploadData={uploadData}
+                component={
+                  uploadData ? (
+                    <primitive object={uploadData} />
+                  ) : (
+                    <GLBComponent />
+                  )
+                }
               />
             </Canvas>
             <div className="buttons">
