@@ -6,16 +6,12 @@ type LightProps = {
   ambientLight: number;
   directionalLight: number;
   directionalLightPosition: Vector3;
-  environment: any;
-  useEnvironment: boolean;
 };
 
 const Light: FC<LightProps> = ({
   ambientLight,
   directionalLight,
   directionalLightPosition,
-  environment,
-  useEnvironment,
 }) => {
   return (
     <>
@@ -27,7 +23,6 @@ const Light: FC<LightProps> = ({
         shadow-mapSize-height={2048}
         castShadow
       />
-      {useEnvironment ? <Environment preset={environment} /> : null}
     </>
   );
 };

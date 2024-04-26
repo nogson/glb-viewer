@@ -16,8 +16,8 @@ import { useControls, Leva } from "leva";
 
 const viewerStyle = css`
   .canvas {
-    height: 400px;
-    margin: 40px 0 0 0;
+    height: 500px;
+    margin: 0 0 0 0;
   }
   .buttons {
     display: flex;
@@ -43,7 +43,6 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
     AmbientLight,
     DirectionalLight,
     DirectionalLightPosition,
-    UseEnvironment,
     Environment,
   } = useControls({
     cameraType: {
@@ -68,7 +67,6 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
       max: 50,
       step: 1,
     },
-    UseEnvironment: false,
     Environment: {
       options: [
         "sunset",
@@ -147,8 +145,8 @@ const Viewer: FC<ViewerProps> = ({ modelType, setModelType, models }) => {
                 ambientLight={AmbientLight}
                 directionalLight={DirectionalLight}
                 directionalLightPosition={DirectionalLightPosition}
-                useEnvironment={UseEnvironment}
-                environment={Environment}
+                // useEnvironment={UseEnvironment}
+                // environment={Environment}
               />
 
               <GlbGroup
